@@ -8,30 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel: GameViewModel
+    
     var body: some View {
-        HStack {
-            CardView()
-            CardView()
-            CardView()
-            CardView()
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card)
+                        .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
+                }
+            }
         }
-        .padding(.horizontal)
         .foregroundColor(.red)
+        .padding(.horizontal)
     }
 }
 
 struct CardView: View {
+    let card: GameModel<String>.Card
+    
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(lineWidth: 3)
-            Text("Hello, World!")
+            let shape = RoundedRectangle(cornerRadius: 20)
+            if card.isFaceUp {
+                shape.fill().foregroundColor(.white)
+                shape.strokeBorder(lineWidth: 3)
+                Text(card.content).font(.largeTitle)
+            } else if card.isMatched {
+                shape.opacity(0)
+            } else {
+                shape.fill()
+            }
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = GameViewModel()
+        ContentView(viewModel: game)
+            .preferredColorScheme(.dark)
+        ContentView(viewModel: game)
+            .preferredColorScheme(.light)
     }
 }
