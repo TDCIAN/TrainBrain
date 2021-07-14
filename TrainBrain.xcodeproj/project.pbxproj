@@ -15,6 +15,7 @@
 		1E006E13269D752300893173 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006E12269D752300893173 /* GameViewModel.swift */; };
 		1EF31C43269E707600F21916 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C42269E707600F21916 /* AspectVGrid.swift */; };
 		1EF31C45269E790D00F21916 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C44269E790D00F21916 /* Pie.swift */; };
+		1EF31C47269EA84100F21916 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C46269EA84100F21916 /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1E006E12269D752300893173 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		1EF31C42269E707600F21916 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		1EF31C44269E790D00F21916 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		1EF31C46269EA84100F21916 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				1E006E12269D752300893173 /* GameViewModel.swift */,
 				1EF31C42269E707600F21916 /* AspectVGrid.swift */,
 				1EF31C44269E790D00F21916 /* Pie.swift */,
+				1EF31C46269EA84100F21916 /* Cardify.swift */,
 				1E006DFE269D1B8D00893173 /* Assets.xcassets */,
 				1E006E03269D1B8D00893173 /* Info.plist */,
 				1E006E00269D1B8D00893173 /* Preview Content */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EF31C45269E790D00F21916 /* Pie.swift in Sources */,
+				1EF31C47269EA84100F21916 /* Cardify.swift in Sources */,
 				1E006E13269D752300893173 /* GameViewModel.swift in Sources */,
 				1E006DFD269D1B8300893173 /* GameView.swift in Sources */,
 				1E006DFB269D1B8300893173 /* TrainBrainApp.swift in Sources */,
