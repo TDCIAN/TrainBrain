@@ -8,7 +8,9 @@
 import SwiftUI
 
 class GameViewModel: ObservableObject {
-    static let emojis: [String] = [
+    typealias Card = GameModel<String>.Card
+    
+    private static let emojis: [String] = [
         "🚂", "🚀", "🚁", "🛺", "🚗",
         "🚙", "🚌", "🚎", "🏎", "🚓",
         "🚑", "🚒", "🚐", "🛻", "🚚",
@@ -16,21 +18,21 @@ class GameViewModel: ObservableObject {
         "🚖", "🚡", "🚠", "🚟", "🚟"
     ]
     
-    static func createGame() -> GameModel<String> {
+    private static func createGame() -> GameModel<String> {
         // numberOfPairsOfCards = 매칭 시킬 수 있는 카드 쌍의 개수
-        GameModel<String>(numberOfPairsOfCards: 4) { pairIndex in
+        GameModel<String>(numberOfPairsOfCards: 16) { pairIndex in
             emojis[pairIndex]
         }
     }
     
     @Published private var model: GameModel<String> = createGame()
     
-    var cards: Array<GameModel<String>.Card> {
+    var cards: Array<Card> {
         return model.cards
     }
     
     // MARK: - Intent(s)
-    func choose(_ card: GameModel<String>.Card) {
+    func choose(_ card: Card) {
         model.choose(card)
     }
 }

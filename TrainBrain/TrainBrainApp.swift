@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct TrainBrainApp: App {
-    let game = GameViewModel()
+    private let game = GameViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: game)
+            GameView(game: game)
         }
     }
 }
