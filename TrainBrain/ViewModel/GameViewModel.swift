@@ -88,7 +88,7 @@ class GameViewModel: ObservableObject {
     
     private static func createGame() -> GameModel<String> {
         // numberOfPairsOfCards = 매칭 시킬 수 있는 카드 쌍의 개수
-        GameManager.numOfPairs = 5
+        GameManager.numOfPairs = 2
         return GameModel<String>(numberOfPairsOfCards: GameManager.numOfPairs) { pairIndex in
             emojis[pairIndex]
         }

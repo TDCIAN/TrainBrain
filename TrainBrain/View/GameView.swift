@@ -13,15 +13,10 @@ struct GameView: View {
     @Namespace private var dealingNamespace
     
     @State private var showTimeOverPopup: Bool = false
+    @State private var showClearPopup: Bool = false
     
-    var showClearPopup: Bool {
-        print("쇼클리어팝업: \(GameManager.didClear)")
-        return GameManager.didClear
-    }
-    
-    @State private var timeRemaining: Int = GameManager.gameTime
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var timeRemaining: Int = 0
+    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     private var timeString: String {
         if self.timeRemaining > 0 {
@@ -52,36 +47,60 @@ struct GameView: View {
             }
             
             if self.showClearPopup {
-                OneButtonPopupView(
+                TwoButtonPopupView(
                     main: "You Made It!",
-                    sub: "play another game!",
-                    agreeAction: {
-                        GameManager.didClear = false
+                    sub: "choose next step!",
+                    selectNewGame: {
+                        self.showClearPopup = false
+                    },
+                    selectAgain: {
+                        self.handleRestart()
+                        self.showClearPopup = false
                     }
                 )
-                .onAppear {
-                    self.timer.upstream.connect().cancel()
-                }
-            } else if self.showTimeOverPopup {
-                OneButtonPopupView(
+            }
+            if self.showTimeOverPopup {
+                TwoButtonPopupView(
                     main: "Time Over",
-                    sub: "try again!",
-                    agreeAction: {
+                    sub: "choose next step!",
+                    selectNewGame: {
+                        self.showTimeOverPopup = false
+                    },
+                    selectAgain: {
+                        self.handleRestart()
                         self.showTimeOverPopup = false
                     }
                 )
             }
         }
+        .onAppear {
+            self.timeRemaining = GameManager.gameTime
+        }
         .onReceive(timer) { time in
             print("타임: \(time)")
-            if self.timeRemaining > 0 {
-                self.timeRemaining -= 1
-            } else {
-                print("time over: \(self.timeRemaining)")
-                self.timer.upstream.connect().cancel()
-                self.showTimeOverPopup = true
-            }
+            handleTimer()
         }
+    }
+        
+    private func handleTimer() {
+        if self.timeRemaining > 0 {
+            if GameManager.didClear {
+                self.showClearPopup = true
+                self.timer.upstream.connect().cancel()
+            } else {
+                self.timeRemaining -= 1
+            }
+        } else {
+            print("time over: \(self.timeRemaining)")
+            self.timer.upstream.connect().cancel()
+            self.showTimeOverPopup = true
+        }
+    }
+    
+    private func handleRestart() {
+        game.restart()
+        self.timeRemaining = GameManager.gameTime
+        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
     
     @State private var dealt = Set<Int>()
@@ -161,7 +180,6 @@ struct GameView: View {
         .foregroundColor(CardConstraints.color)
         .onAppear {
             GameManager.gameTime = 15
-            GameManager.numOfPairs = 5
             for card in game.cards {
                 withAnimation(dealAnimation(for: card)) {
                     deal(card)
@@ -215,122 +233,5 @@ struct GameView: View {
         static let totalDealDuration: Double = 2
         static let undealtHeight: CGFloat = 90
         static let undealtWidth = undealtHeight * aspectRatio
-    }
-}
-
-struct CardView: View {
-    let card: GameViewModel.Card
-    
-    @State private var animatedBonusRemaining: Double = 0
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Text(card.content)
-                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
-                    .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
-                    .font(Font.system(size: DrawingConstants.fontSize))
-                    .scaleEffect(scale(thatFits: geometry.size))
-            }
-            .cardify(isFaceUp: card.isFaceUp)
-        }
-    }
-    
-    private func scale(thatFits size: CGSize) -> CGFloat {
-        min(size.width, size.height) / (DrawingConstants.fontSize / DrawingConstants.fontScale)
-    }
-    
-    private struct DrawingConstants {
-        static let fontScale: CGFloat = 0.7
-        static let fontSize: CGFloat = 32
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let game = GameViewModel()
-        game.choose(game.cards.first!)
-        return GameView(game: game)
-    }
-}
-
-struct OneButtonPopupView: View {
-    var main: String // 팝업에 들어갈 주요 내용 (큰 글씨) -> .ob17
-    var sub: String // 팝업에 들어갈 부가 내용 (작은 글씨) -> .or15
-    var agreeAction: (() -> Void) // 확인 버튼 눌렀을 때 동작
-    
-    init(main: String, sub: String, agreeAction: @escaping (() -> Void)) {
-        self.main = main
-        self.sub = sub
-        self.agreeAction = agreeAction
-    }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Color.black.opacity(0.4)
-  
-                VStack(spacing: 0) {
-                    HStack(spacing: 0) {
-                        VStack {
-                            Spacer().frame(height: 25)
-
-                            // 굵은 텍스트가 들어가는 HStack
-                            HStack {
-                                Spacer()
-                                Text(main)
-                                    .foregroundColor(Color.customGray)
-                                    .multilineTextAlignment(.center)
-                                    .font(.headline)
-                                    .lineLimit(nil)
-                                    .minimumScaleFactor(0.8)
-                                Spacer()
-                            }
-
-                            Spacer().frame(height: 20)
-
-                            // 작은 텍스트가 들어가는 HStack
-                            HStack {
-                                Spacer()
-                                Text(sub)
-                                    .font(.subheadline)
-                                    .foregroundColor(Color.customGray)
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(nil)
-                                    .minimumScaleFactor(0.8)
-                                Spacer()
-                            }
-
-                            Spacer().frame(height: 30)
-
-                            // 확인 버튼
-                            Button(action: {
-                                self.agreeAction()
-                            }) {
-                                VStack(spacing: 0) {
-                                    Text("OK")
-                                        .font(.headline)
-                                        .frame(width: 230)
-                                        .frame(height: 40)
-                                        .foregroundColor(.white)
-                                        .background(Color.customBlue)
-                                        .cornerRadius(6.0)
-                                }
-                            }
-                            
-                            Spacer().frame(height: 25)
-                        }
-                        .frame(width: 280)
-                        .frame(height: 220)
-                        .background(Color.white)
-                        .cornerRadius(6.0)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.clear)
-
-            }
-            .edgesIgnoringSafeArea(.all)
-        }
     }
 }
