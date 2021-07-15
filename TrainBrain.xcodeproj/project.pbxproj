@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F833BCCEC79CC2A1A4CCBB0 /* Pods_TrainBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32F8B2BA786C46E4CD2878E /* Pods_TrainBrain.framework */; };
 		1E006DFB269D1B8300893173 /* TrainBrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006DFA269D1B8300893173 /* TrainBrainApp.swift */; };
 		1E006DFD269D1B8300893173 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006DFC269D1B8300893173 /* GameView.swift */; };
 		1E006DFF269D1B8D00893173 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E006DFE269D1B8D00893173 /* Assets.xcassets */; };
 		1E006E02269D1B8D00893173 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E006E01269D1B8D00893173 /* Preview Assets.xcassets */; };
 		1E006E10269D73C100893173 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006E0F269D73C100893173 /* GameModel.swift */; };
 		1E006E13269D752300893173 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006E12269D752300893173 /* GameViewModel.swift */; };
+		1EC8498A269FCCF900C1169F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1EC84989269FCCF900C1169F /* .swiftlint.yml */; };
 		1EF31C43269E707600F21916 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C42269E707600F21916 /* AspectVGrid.swift */; };
 		1EF31C45269E790D00F21916 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C44269E790D00F21916 /* Pie.swift */; };
 		1EF31C47269EA84100F21916 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF31C46269EA84100F21916 /* Cardify.swift */; };
@@ -27,9 +29,13 @@
 		1E006E03269D1B8D00893173 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E006E0F269D73C100893173 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		1E006E12269D752300893173 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		1EC84989269FCCF900C1169F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1EF31C42269E707600F21916 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		1EF31C44269E790D00F21916 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		1EF31C46269EA84100F21916 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
+		7F60A09A4799E7538B50A4E7 /* Pods-TrainBrain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainBrain.release.xcconfig"; path = "Target Support Files/Pods-TrainBrain/Pods-TrainBrain.release.xcconfig"; sourceTree = "<group>"; };
+		A32F8B2BA786C46E4CD2878E /* Pods_TrainBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrainBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A37C0945280D5AAE824045 /* Pods-TrainBrain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainBrain.debug.xcconfig"; path = "Target Support Files/Pods-TrainBrain/Pods-TrainBrain.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F833BCCEC79CC2A1A4CCBB0 /* Pods_TrainBrain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +55,8 @@
 			children = (
 				1E006DF9269D1B8300893173 /* TrainBrain */,
 				1E006DF8269D1B8300893173 /* Products */,
+				7B20696FA0E6FCAE839E784C /* Pods */,
+				378BBB8AE42897FEB4B9E66F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +81,7 @@
 				1E006DFE269D1B8D00893173 /* Assets.xcassets */,
 				1E006E03269D1B8D00893173 /* Info.plist */,
 				1E006E00269D1B8D00893173 /* Preview Content */,
+				1EC84989269FCCF900C1169F /* .swiftlint.yml */,
 			);
 			path = TrainBrain;
 			sourceTree = "<group>";
@@ -84,6 +94,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		378BBB8AE42897FEB4B9E66F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A32F8B2BA786C46E4CD2878E /* Pods_TrainBrain.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B20696FA0E6FCAE839E784C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A5A37C0945280D5AAE824045 /* Pods-TrainBrain.debug.xcconfig */,
+				7F60A09A4799E7538B50A4E7 /* Pods-TrainBrain.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,9 +118,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E006E06269D1B8D00893173 /* Build configuration list for PBXNativeTarget "TrainBrain" */;
 			buildPhases = (
+				8DBFC2B450CA952068F52BAE /* [CP] Check Pods Manifest.lock */,
 				1E006DF3269D1B8300893173 /* Sources */,
 				1E006DF4269D1B8300893173 /* Frameworks */,
 				1E006DF5269D1B8300893173 /* Resources */,
+				1EC84988269FCB6100C1169F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -141,12 +170,55 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC8498A269FCCF900C1169F /* .swiftlint.yml in Resources */,
 				1E006E02269D1B8D00893173 /* Preview Assets.xcassets in Resources */,
 				1E006DFF269D1B8D00893173 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1EC84988269FCB6100C1169F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		8DBFC2B450CA952068F52BAE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrainBrain-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1E006DF3269D1B8300893173 /* Sources */ = {
@@ -284,6 +356,7 @@
 		};
 		1E006E07269D1B8D00893173 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5A37C0945280D5AAE824045 /* Pods-TrainBrain.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -306,6 +379,7 @@
 		};
 		1E006E08269D1B8D00893173 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F60A09A4799E7538B50A4E7 /* Pods-TrainBrain.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

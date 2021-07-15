@@ -27,7 +27,7 @@ class GameViewModel: ObservableObject {
     
     @Published private var model: GameModel<String> = createGame()
     
-    var cards: Array<Card> {
+    var cards: [Card] {
         return model.cards
     }
     

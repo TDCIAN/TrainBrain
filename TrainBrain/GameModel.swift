@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameModel<CardContent> where CardContent: Equatable {
-    private(set) var cards: Array<Card>
+    private(set) var cards: [Card]
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
         get {
@@ -22,8 +22,7 @@ struct GameModel<CardContent> where CardContent: Equatable {
     mutating func choose(_ card: Card) {
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),
            !cards[chosenIndex].isFaceUp,
-           !cards[chosenIndex].isMatched
-        {
+           !cards[chosenIndex].isMatched {
             if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true

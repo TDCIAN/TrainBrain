@@ -40,7 +40,7 @@ struct GameView: View {
     
     private func dealAnimation(for card: GameViewModel.Card) -> Animation {
         var delay = 0.0
-        if let index = game.cards.firstIndex(where:  { $0.id == card.id }) {
+        if let index = game.cards.firstIndex(where: { $0.id == card.id }) {
             delay = Double(index) * (CardConstraints.totalDealDuration / Double(game.cards.count))
         }
         return Animation.easeInOut(duration: CardConstraints.dealDuration).delay(delay)
@@ -128,7 +128,8 @@ struct CardView: View {
             ZStack {
                 Group {
                     if card.isConsumingBonusTime {
-                        Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: (1-animatedBonusRemaining)*360-90))
+                        Pie(startAngle: Angle(degrees: 0-90),
+                            endAngle: Angle(degrees: (1-animatedBonusRemaining)*360-90))
                             .onAppear {
                                 animatedBonusRemaining = card.bonusRemaining
                                 withAnimation(.linear(duration: card.bonusTimeRemaining)) {

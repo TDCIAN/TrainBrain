@@ -1,0 +1,6 @@
+framework module Pods_TrainBrain {
+  umbrella header "Pods-TrainBrain-umbrella.h"
+
+  export *
+  module * { export * }
+}
