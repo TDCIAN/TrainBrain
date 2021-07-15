@@ -16,7 +16,9 @@ struct GameView: View {
         ZStack(alignment: .bottom) {
             VStack {
                 gameBody
+                    .border(Color.green, width: 1)
                 deckBody
+                    .border(Color.purple, width: 1)
                 HStack {
                     restart
                     Spacer()
