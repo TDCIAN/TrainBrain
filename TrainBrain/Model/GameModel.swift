@@ -27,6 +27,11 @@ struct GameModel<CardContent> where CardContent: Equatable {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
+                    GameManager.numOfPairs -= 1
+                    if GameManager.numOfPairs == 0 {
+                        GameManager.didClear = true
+                    }
+                    print("매칭 됐다: \(cards[chosenIndex].content), 숫자: \(GameManager.numOfPairs)")
                 }
                 cards[chosenIndex].isFaceUp = true
             } else {
@@ -51,23 +56,8 @@ struct GameModel<CardContent> where CardContent: Equatable {
     }
     
     struct Card: Identifiable {
-        var isFaceUp = false {
-            didSet {
-                if isFaceUp {
-                    print("Face up")
-                    startUsingBonusTime()
-                } else {
-                    print("Fail to face up")
-                    stopUsingBonusTime()
-                }
-            }
-        }
-        var isMatched = false {
-            didSet {
-                print("Matched")
-                stopUsingBonusTime()
-            }
-        }
+        var isFaceUp = false
+        var isMatched = false
         var content: CardContent
         var id: Int
         

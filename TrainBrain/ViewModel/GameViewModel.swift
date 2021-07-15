@@ -68,12 +68,28 @@ class GameViewModel: ObservableObject {
         "🤧", "🤕", "🤑", "🤠"
     ]
     private static var emojis: [String] {
-        return level1
+        switch GameManager.gameLevel {
+        case 0:
+            return level1
+        case 1:
+            return level1
+        case 2:
+            return level2
+        case 3:
+            return level3
+        case 4:
+            return level4
+        case 5:
+            return level5
+        default:
+            return level1
+        }
     }
     
     private static func createGame() -> GameModel<String> {
         // numberOfPairsOfCards = 매칭 시킬 수 있는 카드 쌍의 개수
-        GameModel<String>(numberOfPairsOfCards: 30) { pairIndex in
+        GameManager.numOfPairs = 5
+        return GameModel<String>(numberOfPairsOfCards: GameManager.numOfPairs) { pairIndex in
             emojis[pairIndex]
         }
     }
