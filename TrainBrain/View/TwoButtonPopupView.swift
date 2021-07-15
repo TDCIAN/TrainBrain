@@ -36,17 +36,17 @@ struct TwoButtonPopupView: View {
                                 Text(main)
                                     .foregroundColor(Color.customGray)
                                     .multilineTextAlignment(.center)
-                                    .font(.headline)
+                                    .font(.system(size: 24, weight: .bold))
                                     .lineLimit(nil)
                                 Spacer()
                             }
 
-                            Spacer().frame(height: 12)
+                            Spacer().frame(height: 15)
 
                             HStack {
                                 Spacer()
                                 Text(sub)
-                                    .font(.subheadline)
+                                    .font(.system(size: 20, weight: .medium))
                                     .foregroundColor(Color.customGray)
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
@@ -100,7 +100,7 @@ struct TwoButtonPopupView: View {
                 .background(Color.clear)
 
             }
-            
+            .edgesIgnoringSafeArea(.all)
         }
     }
 }

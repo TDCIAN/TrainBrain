@@ -8,8 +8,6 @@
 import Foundation
 
 class GameManager {
-    static let shared = GameManager()
-    
     // 카드 난이도
     static var gameLevel: Int {
         get {
@@ -44,6 +42,7 @@ class GameManager {
     // 게임 클리어
     static var didClear: Bool {
         get {
+            print("맨처음 디드클리어 상태: \(UserDefaults.standard.bool(forKey: "didClear"))")
             return UserDefaults.standard.bool(forKey: "didClear")
         }
         set(newValue) {
@@ -59,15 +58,6 @@ class GameManager {
         }
         set(newValue) {
             UserDefaults.standard.set(newValue, forKey: "bestRecord")
-        }
-    }
-    
-    static var recordDate: String {
-        get {
-            return UserDefaults.standard.string(forKey: "recordDate") ?? "2021.07.15"
-        }
-        set(newValue) {
-            UserDefaults.standard.set(newValue, forKey: "recordDate")
         }
     }
 }

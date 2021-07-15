@@ -12,7 +12,8 @@ struct TrainBrainApp: App {
     private let game = GameViewModel()
     var body: some Scene {
         WindowGroup {
-            GameView(game: game)
+            MainView()
+//            GameView(game: game)
         }
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct GameView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @ObservedObject var game: GameViewModel
     
     @Namespace private var dealingNamespace
@@ -37,54 +39,58 @@ struct GameView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                timerView
-                    .border(Color.red, width: 1)
+        NavigationView {
+            ZStack(alignment: .bottom) {
+                VStack {
+                    timerView
+                    gameBody
+                }
+                .navigationBarHidden(true)
                 
-                gameBody
-                    .border(Color.green, width: 1)
+                if self.showClearPopup {
+                    TwoButtonPopupView(
+                        main: "You Made It!",
+                        sub: "choose next step!",
+                        selectNewGame: {
+                            self.showClearPopup = false
+                            self.handleSetNewGame()
+                        },
+                        selectAgain: {
+                            self.handleRestart()
+                            self.showClearPopup = false
+                        }
+                    )
+                }
+                if self.showTimeOverPopup {
+                    TwoButtonPopupView(
+                        main: "Time Over",
+                        sub: "choose next step!",
+                        selectNewGame: {
+                            self.showTimeOverPopup = false
+                            self.handleSetNewGame()
+                        },
+                        selectAgain: {
+                            self.handleRestart()
+                            self.showTimeOverPopup = false
+                        }
+                    )
+                }
             }
-            
-            if self.showClearPopup {
-                TwoButtonPopupView(
-                    main: "You Made It!",
-                    sub: "choose next step!",
-                    selectNewGame: {
-                        self.showClearPopup = false
-                    },
-                    selectAgain: {
-                        self.handleRestart()
-                        self.showClearPopup = false
-                    }
-                )
+            .navigationBarHidden(true)
+            .onAppear {
+                self.timeRemaining = GameManager.gameTime
             }
-            if self.showTimeOverPopup {
-                TwoButtonPopupView(
-                    main: "Time Over",
-                    sub: "choose next step!",
-                    selectNewGame: {
-                        self.showTimeOverPopup = false
-                    },
-                    selectAgain: {
-                        self.handleRestart()
-                        self.showTimeOverPopup = false
-                    }
-                )
+            .onReceive(timer) { time in
+                handleTimer()
             }
         }
-        .onAppear {
-            self.timeRemaining = GameManager.gameTime
-        }
-        .onReceive(timer) { time in
-            print("타임: \(time)")
-            handleTimer()
-        }
+        .navigationBarHidden(true)
     }
         
     private func handleTimer() {
         if self.timeRemaining > 0 {
             if GameManager.didClear {
+                print("핸들타이머 - 디드클리어: \(GameManager.didClear)")
                 self.showClearPopup = true
                 self.timer.upstream.connect().cancel()
             } else {
@@ -97,7 +103,14 @@ struct GameView: View {
         }
     }
     
+    private func handleSetNewGame() {
+        GameManager.didClear = false
+        game.restart()
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     private func handleRestart() {
+        GameManager.didClear = false
         game.restart()
         self.timeRemaining = GameManager.gameTime
         self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -179,7 +192,7 @@ struct GameView: View {
         .padding(.horizontal)
         .foregroundColor(CardConstraints.color)
         .onAppear {
-            GameManager.gameTime = 15
+            print("카드 개수: \(game.cards.count)")
             for card in game.cards {
                 withAnimation(dealAnimation(for: card)) {
                     deal(card)
