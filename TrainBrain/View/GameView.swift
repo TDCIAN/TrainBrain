@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var game: GameViewModel
+    @ObservedObject var gameViewModel: GameViewModel
     
     @Namespace private var dealingNamespace
     
@@ -38,19 +38,94 @@ struct GameView: View {
         }
     }
     
+    private var clearMainString: String {
+        let oldRecord = GameManager.bestRecord
+        let newRecord = GameManager.earnedPoints
+        
+        if oldRecord < newRecord {
+            GameManager.bestRecord = newRecord
+            return "Record Breaking!"
+        } else {
+            return "You Made It!"
+        }
+    }
+    
+    private var clearSubString: String {
+        let newRecord = GameManager.earnedPoints
+        return "you got\n\(newRecord) points!"
+    }
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
                 VStack {
-                    timerView
-                    gameBody
+                    HStack {
+                        if self.timeRemaining > 0 {
+                            Group {
+                                Text("⏱")
+                                    .font(.title)
+                                    .padding(.leading, 10)
+                                
+                                Spacer()
+                                
+                                Text(timeString)
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                
+                                Spacer()
+                                
+                                Text("⏱")
+                                    .font(.title)
+                                    .padding(.trailing, 10)
+                            }
+                        } else {
+                            Text(timeString)
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .frame(width: 150, height: 45)
+                    .background(
+                        Capsule()
+                            .fill(timerColor)
+                    )
+                    .padding(.top)
+                    
+                    AspectVGrid(items: gameViewModel.cards, aspectRatio: 2/3) { card in
+                        if isUndealt(card) || card.isMatched && !card.isFaceUp {
+                            Color.clear
+                        } else {
+                            CardView(card: card)
+                                .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                                .padding(4)
+                                .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+                                .zIndex(zIndex(of: card))
+                                .onTapGesture {
+                                    withAnimation {
+                                        gameViewModel.choose(card)
+                                    }
+                                }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .foregroundColor(CardConstraints.color)
+                    .onAppear {
+                        gameViewModel.restart()
+                        print("전체 카드 개수: \(gameViewModel.cards.count)")
+                        for card in gameViewModel.cards {
+                            withAnimation(dealAnimation(for: card)) {
+                                deal(card)
+                            }
+                        }
+                    }
                 }
                 .navigationBarHidden(true)
                 
                 if self.showClearPopup {
                     TwoButtonPopupView(
-                        main: "You Made It!",
-                        sub: "choose next step!",
+                        type: PopupType.clear,
+                        main: clearMainString,
+                        sub: clearSubString,
                         selectNewGame: {
                             self.showClearPopup = false
                             self.handleSetNewGame()
@@ -60,9 +135,9 @@ struct GameView: View {
                             self.showClearPopup = false
                         }
                     )
-                }
-                if self.showTimeOverPopup {
+                } else if self.showTimeOverPopup {
                     TwoButtonPopupView(
+                        type: PopupType.timeOver,
                         main: "Time Over",
                         sub: "choose next step!",
                         selectNewGame: {
@@ -78,6 +153,7 @@ struct GameView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
+                print("게임뷰 온어피어 - 게임레벨: \(GameManager.gameLevel), 넘오브페어즈: \(GameManager.numOfPairs), 게임타임: \(GameManager.gameTime)")
                 self.timeRemaining = GameManager.gameTime
             }
             .onReceive(timer) { time in
@@ -105,13 +181,13 @@ struct GameView: View {
     
     private func handleSetNewGame() {
         GameManager.didClear = false
-        game.restart()
+        gameViewModel.restart()
         self.presentationMode.wrappedValue.dismiss()
     }
-    
+        
     private func handleRestart() {
         GameManager.didClear = false
-        game.restart()
+        gameViewModel.restart()
         self.timeRemaining = GameManager.gameTime
         self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
@@ -119,6 +195,7 @@ struct GameView: View {
     @State private var dealt = Set<Int>()
     
     private func deal(_ card: GameViewModel.Card) {
+        print("딜 - 카드: \(card.content)")
         dealt.insert(card.id)
     }
     
@@ -128,115 +205,14 @@ struct GameView: View {
     
     private func dealAnimation(for card: GameViewModel.Card) -> Animation {
         var delay = 0.0
-        if let index = game.cards.firstIndex(where: { $0.id == card.id }) {
-            delay = Double(index) * (CardConstraints.totalDealDuration / Double(game.cards.count))
+        if let index = gameViewModel.cards.firstIndex(where: { $0.id == card.id }) {
+            delay = Double(index) * (CardConstraints.totalDealDuration / Double(gameViewModel.cards.count))
         }
         return Animation.easeInOut(duration: CardConstraints.dealDuration).delay(delay)
     }
     
     private func zIndex(of card: GameViewModel.Card) -> Double {
-        -Double(game.cards.firstIndex(where: { $0.id == card.id }) ?? 0)
-    }
-    
-    var timerView: some View {
-        HStack {
-            if self.timeRemaining > 0 {
-                Group {
-                    Text("⏱")
-                        .font(.title)
-                        .padding(.leading, 10)
-                    
-                    Spacer()
-                    
-                    Text(timeString)
-                        .font(.title)
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                    
-                    Text("⏱")
-                        .font(.title)
-                        .padding(.trailing, 10)
-                }
-            } else {
-                Text(timeString)
-                    .font(.title)
-                    .foregroundColor(.white)
-            }
-        }
-        .frame(width: 150, height: 45)
-        .background(
-            Capsule()
-                .fill(timerColor)
-        )
-        .padding(.top)
-    }
-    
-    var gameBody: some View {
-        AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
-            if isUndealt(card) || card.isMatched && !card.isFaceUp {
-                Color.clear
-            } else {
-                CardView(card: card)
-                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                    .padding(4)
-                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
-                    .zIndex(zIndex(of: card))
-                    .onTapGesture {
-                        withAnimation {
-                            game.choose(card)
-                        }
-                    }
-            }
-        }
-        .padding(.horizontal)
-        .foregroundColor(CardConstraints.color)
-        .onAppear {
-            print("카드 개수: \(game.cards.count)")
-            for card in game.cards {
-                withAnimation(dealAnimation(for: card)) {
-                    deal(card)
-                }
-            }
-        }
-    }
-    
-    var deckBody: some View {
-        ZStack {
-            ForEach(game.cards.filter(isUndealt)) { card in
-                CardView(card: card)
-                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
-                    .zIndex(zIndex(of: card))
-            }
-        }
-        .frame(width: CardConstraints.undealtWidth, height: CardConstraints.undealtHeight)
-        .foregroundColor(CardConstraints.color)
-        .onTapGesture {
-            // "deal" cards
-            for card in game.cards {
-                withAnimation(dealAnimation(for: card)) {
-                    deal(card)
-                }
-            }
-        }
-    }
-    
-    var shuffle: some View {
-        Button("Shuffle") {
-            withAnimation {
-                game.shuffle()
-            }            
-        }
-    }
-    
-    var restart: some View {
-        Button("Restart") {
-            withAnimation {
-                dealt = []
-                game.restart()
-            }
-        }
+        -Double(gameViewModel.cards.firstIndex(where: { $0.id == card.id }) ?? 0)
     }
     
     private struct CardConstraints {

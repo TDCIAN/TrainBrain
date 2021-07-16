@@ -30,7 +30,23 @@ struct MainView: View {
         return "(3) Game Time : \(GameManager.gameTime)"
     }
     
-    private let game = GameViewModel()
+    private var matchingPoint: String {
+        return "you can get \(GameManager.earnedPoints) points now!"
+    }
+    
+    private var bestRecord: String {
+        if GameManager.bestRecord == 0 {
+            return "No Record"
+        } else {
+            return "\(GameManager.bestRecord)"
+        }
+    }
+    
+    @State private var showPicker: Bool = false
+    @State private var pickerType: PickerType = .gameLevel
+    @State private var chosenValue: Int = -1
+    
+    private let gameViewModel = GameViewModel()
     
     var body: some View {
         GeometryReader { geometry in
@@ -67,6 +83,8 @@ struct MainView: View {
                                 
                                 Button(action: {
                                     print("게임 레벨")
+                                    self.pickerType = .gameLevel
+                                    self.showPicker = true
                                 }, label: {
                                     HStack {
                                         Text(gameLevel)
@@ -81,6 +99,8 @@ struct MainView: View {
                                 
                                 Button(action: {
                                     print("카드 숫자")
+                                    self.pickerType = .numOfCards
+                                    self.showPicker = true
                                 }, label: {
                                     HStack {
                                         Text(numOfCard)
@@ -95,6 +115,8 @@ struct MainView: View {
                                 
                                 Button(action: {
                                     print("게임 시간")
+                                    self.pickerType = .gameTime
+                                    self.showPicker = true
                                 }, label: {
                                     HStack {
                                         Text(gameTime)
@@ -118,7 +140,7 @@ struct MainView: View {
                             VStack {
                                 HStack {
                                     Spacer()
-                                    Text("point per matching: \(123)")
+                                    Text(matchingPoint)
                                         .foregroundColor(Color.white)
                                         .padding(.leading)
                                         .font(.system(size: 18, weight: .bold))
@@ -143,7 +165,7 @@ struct MainView: View {
                             
                             HStack {
                                 Spacer()
-                                Text("12345\(GameManager.bestRecord)")
+                                Text(bestRecord)
                                     .foregroundColor(Color.white)
                                     .padding(.leading)
                                     .font(.system(size: 22, weight: .bold))
@@ -153,7 +175,7 @@ struct MainView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: GameView(game: game)) {
+                        NavigationLink(destination: GameView(gameViewModel: gameViewModel)) {
                             HStack {
                                 Spacer()
                                 Text("START GAME")
@@ -169,19 +191,31 @@ struct MainView: View {
                         
                         Spacer().frame(height: geometry.size.height * 0.05)
                         
-                        Button(action: {
-                            print("앱 인포")
-                        }, label: {
-                            HStack {
-                                Spacer()
-                                Text("APP INFO")
-                                    .foregroundColor(Color.customGray)
-                                    .font(.system(size: 15, weight: .bold))
-                                Spacer()
+                        NavigationLink(
+                            destination: AppInfoView(),
+                            label: {
+                                HStack {
+                                    Spacer()
+                                    Text("APP INFO")
+                                        .foregroundColor(Color.customGray)
+                                        .font(.system(size: 15, weight: .bold))
+                                    Spacer()
+                                }
                             }
-                        })
-                        
+                        )
                         Spacer().frame(height: geometry.size.height * 0.05)
+                    }
+                    
+                    if showPicker {
+                        ModalPickerView(
+                            chosenValue: self.$chosenValue,
+                            pickerType: self.$pickerType,
+                            selectAction: {
+                                print("닫는 순간 피커타입: \(self.pickerType), 초즌밸류: \(self.chosenValue)")
+                                self.handleChosenValue(type: self.pickerType, value: self.chosenValue)
+                                self.showPicker = false
+                            }
+                        )
                     }
                 } // ZStack의 끝
                 .navigationBarHidden(true)
@@ -189,6 +223,17 @@ struct MainView: View {
                     GameManager.didClear = false
                 }
             }
+        }
+    }
+    
+    private func handleChosenValue(type: PickerType, value: Int) {
+        print("핸들초즌밸류 - 타입: \(type), 밸류: \(value)")
+        if type == .gameLevel {
+            GameManager.gameLevel = value
+        } else if type == .numOfCards {
+            GameManager.numOfPairs = value
+        } else {
+            GameManager.gameTime = value
         }
     }
 }

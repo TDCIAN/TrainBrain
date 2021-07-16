@@ -15,6 +15,8 @@
 		1E006E10269D73C100893173 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006E0F269D73C100893173 /* GameModel.swift */; };
 		1E006E13269D752300893173 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E006E12269D752300893173 /* GameViewModel.swift */; };
 		1E7218EA26A0664E00373482 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7218E926A0664E00373482 /* MainView.swift */; };
+		1EACCD6F26A119C60038BEE6 /* ModalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EACCD6E26A119C60038BEE6 /* ModalPickerView.swift */; };
+		1EACCD7126A146030038BEE6 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EACCD7026A146030038BEE6 /* AppInfoView.swift */; };
 		1EC8498A269FCCF900C1169F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1EC84989269FCCF900C1169F /* .swiftlint.yml */; };
 		1EC8499126A00BE300C1169F /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC8499026A00BE300C1169F /* Color+Extension.swift */; };
 		1EC8499326A0172400C1169F /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC8499226A0172400C1169F /* GameManager.swift */; };
@@ -35,6 +37,8 @@
 		1E006E0F269D73C100893173 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		1E006E12269D752300893173 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		1E7218E926A0664E00373482 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		1EACCD6E26A119C60038BEE6 /* ModalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPickerView.swift; sourceTree = "<group>"; };
+		1EACCD7026A146030038BEE6 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		1EC84989269FCCF900C1169F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1EC8499026A00BE300C1169F /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		1EC8499226A0172400C1169F /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
@@ -130,13 +134,15 @@
 		1EC8498E26A00BA600C1169F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1E006DFC269D1B8300893173 /* GameView.swift */,
 				1EF31C42269E707600F21916 /* AspectVGrid.swift */,
 				1EF31C44269E790D00F21916 /* Pie.swift */,
 				1EF31C46269EA84100F21916 /* Cardify.swift */,
+				1E7218E926A0664E00373482 /* MainView.swift */,
+				1E006DFC269D1B8300893173 /* GameView.swift */,
 				1EC8499426A0443500C1169F /* CardView.swift */,
 				1EC8499826A0455100C1169F /* TwoButtonPopupView.swift */,
-				1E7218E926A0664E00373482 /* MainView.swift */,
+				1EACCD6E26A119C60038BEE6 /* ModalPickerView.swift */,
+				1EACCD7026A146030038BEE6 /* AppInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 			files = (
 				1EC8499926A0455100C1169F /* TwoButtonPopupView.swift in Sources */,
 				1E7218EA26A0664E00373482 /* MainView.swift in Sources */,
+				1EACCD7126A146030038BEE6 /* AppInfoView.swift in Sources */,
 				1EF31C45269E790D00F21916 /* Pie.swift in Sources */,
 				1EC8499326A0172400C1169F /* GameManager.swift in Sources */,
 				1EF31C47269EA84100F21916 /* Cardify.swift in Sources */,
@@ -289,6 +296,7 @@
 				1EC8499526A0443500C1169F /* CardView.swift in Sources */,
 				1E006DFD269D1B8300893173 /* GameView.swift in Sources */,
 				1E006DFB269D1B8300893173 /* TrainBrainApp.swift in Sources */,
+				1EACCD6F26A119C60038BEE6 /* ModalPickerView.swift in Sources */,
 				1EF31C43269E707600F21916 /* AspectVGrid.swift in Sources */,
 				1E006E10269D73C100893173 /* GameModel.swift in Sources */,
 				1EC8499126A00BE300C1169F /* Color+Extension.swift in Sources */,
@@ -433,7 +441,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeongminkim.TrainBrain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -456,7 +464,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeongminkim.TrainBrain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
