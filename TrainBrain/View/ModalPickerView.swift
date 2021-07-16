@@ -55,7 +55,6 @@ struct ModalPickerView: View {
                         Text(title)
                             .foregroundColor(Color.customGray)
                             .font(.system(size: 24, weight: .bold))
-                            .border(Color.purple, width: 1)
                         
                         Spacer().frame(height: 10)
                         
@@ -66,7 +65,6 @@ struct ModalPickerView: View {
                         }
                         .frame(height: 150)
                         .labelsHidden()
-                        .border(Color.green, width: 1)
                         
                         Spacer().frame(height: 10)
                         
@@ -80,8 +78,7 @@ struct ModalPickerView: View {
                                .foregroundColor(Color.customGray)
                                .contentShape(Rectangle())
                         }
-                        .border(Color.orange, width: 1)
-                            .padding(.bottom, 30)
+                        .padding(.bottom, 30)
                     }
                     .frame(width: geometry.size.width)
                     .frame(height: 300)

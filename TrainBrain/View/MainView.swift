@@ -34,13 +34,7 @@ struct MainView: View {
         return "you can get \(GameManager.earnedPoints) points now!"
     }
     
-    private var bestRecord: String {
-        if GameManager.bestRecord == 0 {
-            return "No Record"
-        } else {
-            return "\(GameManager.bestRecord)"
-        }
-    }
+    @State var bestRecord: String = "No Record"
     
     @State private var showPicker: Bool = false
     @State private var pickerType: PickerType = .gameLevel
@@ -221,6 +215,7 @@ struct MainView: View {
                 .navigationBarHidden(true)
                 .onAppear {
                     GameManager.didClear = false
+                    self.setBestRecord()
                 }
             }
         }
@@ -234,6 +229,14 @@ struct MainView: View {
             GameManager.numOfPairs = value
         } else {
             GameManager.gameTime = value
+        }
+    }
+    
+    private func setBestRecord() {
+        if GameManager.bestRecord == 0 {
+            self.bestRecord = "No Record"
+        } else {
+            self.bestRecord = "\(GameManager.bestRecord)"
         }
     }
 }
