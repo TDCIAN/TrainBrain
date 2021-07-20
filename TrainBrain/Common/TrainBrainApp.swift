@@ -13,7 +13,6 @@ struct TrainBrainApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-//            GameView(game: game)
         }
     }
 }

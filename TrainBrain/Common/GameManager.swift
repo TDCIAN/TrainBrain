@@ -14,7 +14,6 @@ class GameManager {
             return UserDefaults.standard.integer(forKey: "gameLevel")
         }
         set(newValue) {
-            print("매니저.게임레벨 - 뉴밸류: \(newValue)")
             UserDefaults.standard.set(newValue, forKey: "gameLevel")
         }
     }
@@ -25,7 +24,6 @@ class GameManager {
             return UserDefaults.standard.integer(forKey: "numOfPairs")
         }
         set(newValue) {
-            print("매니저.넘오브페어즈 - 뉴밸류: \(newValue)")
             UserDefaults.standard.set(newValue, forKey: "numOfPairs")
             self.didClear = (newValue == 0)
         }
@@ -37,7 +35,6 @@ class GameManager {
             return UserDefaults.standard.integer(forKey: "gameTime")
         }
         set(newValue) {
-            print("매니저.게임타임 - 뉴밸류: \(newValue)")
             UserDefaults.standard.set(newValue, forKey: "gameTime")
         }
     }
@@ -55,7 +52,6 @@ class GameManager {
         default:
             points *= 1
         }
-        print("게임레벨: \(self.gameLevel), 카드개수: \(self.numOfPairs), 게임시간: \(self.gameTime), 획득 가능 점수: \(points)")
         return points
     }
     
@@ -65,7 +61,6 @@ class GameManager {
             return UserDefaults.standard.bool(forKey: "didClear")
         }
         set(newValue) {
-            print("매니저.게임타임 - 디드클리어: \(newValue)")
             UserDefaults.standard.set(newValue, forKey: "didClear")
         }
     }
@@ -76,7 +71,6 @@ class GameManager {
             return UserDefaults.standard.integer(forKey: "bestRecord")
         }
         set(newValue) {
-            print("매니저.게임타임 - 베스트레코드: \(newValue)")
             UserDefaults.standard.set(newValue, forKey: "bestRecord")
         }
     }

@@ -111,7 +111,6 @@ struct GameView: View {
                     .foregroundColor(CardConstraints.color)
                     .onAppear {
                         gameViewModel.restart()
-                        print("전체 카드 개수: \(gameViewModel.cards.count)")
                         for card in gameViewModel.cards {
                             withAnimation(dealAnimation(for: card)) {
                                 deal(card)
@@ -153,7 +152,6 @@ struct GameView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
-                print("게임뷰 온어피어 - 게임레벨: \(GameManager.gameLevel), 넘오브페어즈: \(GameManager.numOfPairs), 게임타임: \(GameManager.gameTime)")
                 self.timeRemaining = GameManager.gameTime
             }
             .onReceive(timer) { time in
@@ -166,14 +164,12 @@ struct GameView: View {
     private func handleTimer() {
         if self.timeRemaining > 0 {
             if GameManager.didClear {
-                print("핸들타이머 - 디드클리어: \(GameManager.didClear)")
                 self.showClearPopup = true
                 self.timer.upstream.connect().cancel()
             } else {
                 self.timeRemaining -= 1
             }
         } else {
-            print("time over: \(self.timeRemaining)")
             self.timer.upstream.connect().cancel()
             self.showTimeOverPopup = true
         }
@@ -195,7 +191,6 @@ struct GameView: View {
     @State private var dealt = Set<Int>()
     
     private func deal(_ card: GameViewModel.Card) {
-        print("딜 - 카드: \(card.content)")
         dealt.insert(card.id)
     }
     

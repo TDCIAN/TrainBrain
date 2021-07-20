@@ -19,7 +19,6 @@ struct MainView: View {
         if GameManager.numOfPairs == 0 {
             GameManager.numOfPairs = 10
         }
-        print("넘오브페어: \(GameManager.numOfPairs)")
         return "(2) Number of Card : \(GameManager.numOfPairs)"
     }
     
@@ -76,7 +75,6 @@ struct MainView: View {
                                 Spacer().frame(height: 15)
                                 
                                 Button(action: {
-                                    print("게임 레벨")
                                     self.pickerType = .gameLevel
                                     self.showPicker = true
                                 }, label: {
@@ -92,7 +90,6 @@ struct MainView: View {
                                 Spacer().frame(height: 20)
                                 
                                 Button(action: {
-                                    print("카드 숫자")
                                     self.pickerType = .numOfCards
                                     self.showPicker = true
                                 }, label: {
@@ -108,7 +105,6 @@ struct MainView: View {
                                 Spacer().frame(height: 20)
                                 
                                 Button(action: {
-                                    print("게임 시간")
                                     self.pickerType = .gameTime
                                     self.showPicker = true
                                 }, label: {
@@ -205,7 +201,6 @@ struct MainView: View {
                             chosenValue: self.$chosenValue,
                             pickerType: self.$pickerType,
                             selectAction: {
-                                print("닫는 순간 피커타입: \(self.pickerType), 초즌밸류: \(self.chosenValue)")
                                 self.handleChosenValue(type: self.pickerType, value: self.chosenValue)
                                 self.showPicker = false
                             }
@@ -222,7 +217,6 @@ struct MainView: View {
     }
     
     private func handleChosenValue(type: PickerType, value: Int) {
-        print("핸들초즌밸류 - 타입: \(type), 밸류: \(value)")
         if type == .gameLevel {
             GameManager.gameLevel = value
         } else if type == .numOfCards {

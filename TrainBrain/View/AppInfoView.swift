@@ -57,7 +57,6 @@ struct AppInfoView: View {
                 }
                 
                 Button(action: {
-                    print("오픈소스 라이센스")
                     self.showOpensource.toggle()
                 }, label: {
                     HStack {

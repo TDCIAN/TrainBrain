@@ -31,10 +31,8 @@ struct GameModel<CardContent> where CardContent: Equatable {
                     cards[potentialMatchIndex].isMatched = true
                     self.numOfCard -= 1
                     if self.numOfCard == 0 {
-                        print("넘오브카드가 0이네: \(self.numOfCard)")
                         GameManager.didClear = true
                     }
-                    print("매칭 됐다: \(cards[chosenIndex].content), 숫자: \(self.numOfCard)")
                 }
                 cards[chosenIndex].isFaceUp = true
             } else {
@@ -50,7 +48,6 @@ struct GameModel<CardContent> where CardContent: Equatable {
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         cards = []
         // add numberOfPairsOfCards x 2 cards to cards array
-        print("게임 만드는 순간 카드 숫자: \(numberOfPairsOfCards)")
         for pairIndex in 0..<numberOfPairsOfCards {
             let content: CardContent = createCardContent(pairIndex)
             cards.append(Card(content: content, id: pairIndex*2))
