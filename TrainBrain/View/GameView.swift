@@ -109,14 +109,6 @@ struct GameView: View {
                     }
                     .padding(.horizontal)
                     .foregroundColor(CardConstraints.color)
-                    .onAppear {
-                        gameViewModel.restart()
-                        for card in gameViewModel.cards {
-                            withAnimation(dealAnimation(for: card)) {
-                                deal(card)
-                            }
-                        }
-                    }
                 }
                 .navigationBarHidden(true)
                 
@@ -152,6 +144,12 @@ struct GameView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
+                gameViewModel.restart()
+                for card in gameViewModel.cards {
+                    withAnimation(dealAnimation(for: card)) {
+                        deal(card)
+                    }
+                }
                 self.timeRemaining = GameManager.gameTime
             }
             .onReceive(timer) { time in
