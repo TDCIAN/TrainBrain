@@ -51,8 +51,8 @@ struct MainView: View {
                     VStack {
                         Spacer().frame(height: geometry.size.height * 0.125)
                         
-                        Text("CARDY HARDY")
-                            .font(.system(size: 40, weight: .heavy))
+                        Text("Cardy Hardy")
+                            .font(.system(size: 28, weight: .heavy))
                             .foregroundColor(Color.white)
                         
                         Group {
@@ -143,7 +143,7 @@ struct MainView: View {
                         VStack {
                             HStack {
                                 Spacer()
-                                Text("Your Best Record")
+                                Text("Best Record")
                                     .foregroundColor(Color.white)
                                     .padding(.leading)
                                     .font(.system(size: 20, weight: .bold))
@@ -155,7 +155,7 @@ struct MainView: View {
                                 Text(bestRecord)
                                     .foregroundColor(Color.white)
                                     .padding(.leading)
-                                    .font(.system(size: 22, weight: .bold))
+                                    .font(.system(size: 20, weight: .bold))
                                 Spacer()
                             }
                         }
