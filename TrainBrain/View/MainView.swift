@@ -45,17 +45,14 @@ struct MainView: View {
         GeometryReader { geometry in
             NavigationView {
                 ZStack {
-                    LinearGradient(gradient: Gradient(
-                                    colors: [Color.backgroundBlue, Color.customBlue]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing)
+                    Color.init(0, 50, 77)
                         .edgesIgnoringSafeArea(.all)
                     
                     VStack {
                         Spacer().frame(height: geometry.size.height * 0.125)
                         
-                        Text("TRAIN BRAIN")
-                            .font(.system(size: 50, weight: .heavy))
+                        Text("CARDY HARDY")
+                            .font(.system(size: 40, weight: .heavy))
                             .foregroundColor(Color.white)
                         
                         Group {
@@ -187,7 +184,7 @@ struct MainView: View {
                                 HStack {
                                     Spacer()
                                     Text("APP INFO")
-                                        .foregroundColor(Color.customGray)
+                                        .foregroundColor(Color.white)
                                         .font(.system(size: 15, weight: .bold))
                                     Spacer()
                                 }
