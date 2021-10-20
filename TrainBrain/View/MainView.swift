@@ -60,7 +60,7 @@ struct MainView: View {
 
                             HStack {
                                 Spacer()
-                                Text("SET YOUR OWN GAME!")
+                                Text("SET NEW GAME!")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 20, weight: .bold))
                                 Spacer()
@@ -146,7 +146,7 @@ struct MainView: View {
                                 Text("Best Record")
                                     .foregroundColor(Color.white)
                                     .padding(.leading)
-                                    .font(.system(size: 20, weight: .bold))
+                                    .font(.system(size: 15, weight: .bold))
                                 Spacer()
                             }
                             
@@ -155,7 +155,7 @@ struct MainView: View {
                                 Text(bestRecord)
                                     .foregroundColor(Color.white)
                                     .padding(.leading)
-                                    .font(.system(size: 20, weight: .bold))
+                                    .font(.system(size: 15, weight: .bold))
                                 Spacer()
                             }
                         }
