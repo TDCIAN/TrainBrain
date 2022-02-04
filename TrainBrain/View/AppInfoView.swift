@@ -93,7 +93,7 @@ struct AppInfoView: View {
                 .background(Color.customGray)
 
                 HStack {
-                    Text("tdcian71@gmail.com")
+                    Text(verbatim: "tdcian71@gmail.com")
                         .padding(.leading, 20)
                         .foregroundColor(Color.customGray)
                         .font(.subheadline)
