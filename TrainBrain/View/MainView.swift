@@ -45,13 +45,13 @@ struct MainView: View {
         GeometryReader { geometry in
             NavigationView {
                 ZStack {
-                    Color.init(0, 50, 77)
+                    Color("LaunchPadColor")
                         .edgesIgnoringSafeArea(.all)
                     
                     VStack {
                         Spacer().frame(height: geometry.size.height * 0.125)
                         
-                        Text("Cardy Hardy")
+                        Text("Carder Garden")
                             .font(.system(size: 28, weight: .heavy))
                             .foregroundColor(Color.white)
                         
